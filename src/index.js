@@ -1,12 +1,44 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class Datepicker extends React.Component {
+  render() {
+    return (
+      <DatePicker
+        selected={this.props.date}
+        onChange={() => {
+          this.props.handleChange(this.props.date);
+        }}
+      />
+    );
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: new Date()
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(date) {
+    this.setState({
+      date: date
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello World!</h1>
+        <Datepicker date={this.state.date} handleChange={this.handleChange} />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Index />, document.getElementById("root"));
